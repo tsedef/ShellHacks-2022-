@@ -111,17 +111,57 @@ const App = () => {
     let title = prompt("Please enter a new title for your event");
     let calendarApi = selectInfo.view.calendar;
 
+    var timeStartEvent;
+    var timeEndEvent;
+
     calendarApi.unselect(); // clear date selection
-    if (title) {
-      let timeSpecificEvent = prompt(
-        "If this event is time-specific, please enter its start and end time"
-      );
+
+    if(calendarApi.view.type === "dayGridMonth"){
+      // console.log(`view currently:` , calendarApi.view.type)   
+      if(title){
+        timeStartEvent = prompt('If this event is time-specific, please enter its start time in the format hh:mm || If the event is all-day long, leave blank!')
+        if(timeStartEvent) {
+          timeEndEvent = prompt('Please enter its end time in the format hh:mm')
+        } 
+      }
+      
+      //time date format: 2015-03-25T12:00:00Z
+      
+      var actualEndStr = selectInfo.end //date object itself
+      actualEndStr.setDate(actualEndStr.getDate() - 1) //initial selection of day. DEFAULT; Returns Date object
+      actualEndStr = actualEndStr.toISOString().substring(0,10) //converts Date object to formatted string
+      console.log(actualEndStr)
+      if(timeStartEvent > timeEndEvent){ //end day changes because event passes midnight, therefore leading to the next day e.g.: 16:00 sept2 - 02:00 sept3
+        actualEndStr = selectInfo.endStr //selectInfo.endStr; Library default value is next day
+      }
+
+      let startDateObject = new Date(selectInfo.startStr + "T" + timeStartEvent + ":00-04:00")
+      let endDateObject = new Date(actualEndStr + "T" + timeEndEvent + ":00-04:00")
+
+      if (title && timeStartEvent && timeEndEvent) {
+        calendarApi.addEvent({
+          id: createEventId(),
+          title: title,
+          start: startDateObject,
+          end: endDateObject,
+          allDay: false
+        })
+      }
+      else if (title) { //all-day event. No initial or end time
+        calendarApi.addEvent({
+          id: createEventId(),
+          title: title,
+          start: selectInfo.startStr,
+          end: selectInfo.endStr,
+          allDay: selectInfo.allDay
+        })
+      }
     }
 
-    if (title) {
+    else if (title) {
       calendarApi.addEvent({
         id: createEventId(),
-        title,
+        title:title,
         start: selectInfo.startStr,
         end: selectInfo.endStr,
         allDay: selectInfo.allDay,
@@ -130,6 +170,7 @@ const App = () => {
   };
 
   const renderEventContent = (eventInfo) => {
+    console.log((eventInfo.event))
     return (
       <>
         <b>{eventInfo.timeText}</b>
@@ -167,6 +208,8 @@ const App = () => {
           weekends={weekendsVisible}
           initialEvents={INITIAL_EVENTS}
           // alternatively, use the `events` setting to fetch from a feed
+          displayEventEnd={true}
+          businessHours={true}
           select={handleDateSelect}
           eventContent={renderEventContent} // custom render function
           eventClick={handleEventClick}
