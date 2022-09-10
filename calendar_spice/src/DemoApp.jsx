@@ -3,10 +3,13 @@ import FullCalendar, { formatDate } from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
+import momentPlugin from '@fullcalendar/moment'
 import { INITIAL_EVENTS, createEventId } from './event-utils'
 
-export default class DemoApp extends React.Component {
+let timeStartEvent;
+let timeEndEvent;
 
+export default class DemoApp extends React.Component {
   state = {
     weekendsVisible: true,
     currentEvents: []
@@ -18,7 +21,7 @@ export default class DemoApp extends React.Component {
         {this.renderSidebar()}
         <div className='demo-app-main'>
           <FullCalendar
-            plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+            plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, momentPlugin]}
             headerToolbar={{
               left: 'prev,next today',
               center: 'title',
@@ -86,20 +89,57 @@ export default class DemoApp extends React.Component {
   handleDateSelect = (selectInfo) => {
     let title = prompt('Please enter a new title for your event')
     let calendarApi = selectInfo.view.calendar
+    
+    var timeStartEvent = selectInfo.startStr;
+    var timeEndEvent = null;
 
     calendarApi.unselect() // clear date selection
     if(title){
-      let timeSpecificEvent = prompt('If this event is time-specific, please enter its start and end time')
+      timeStartEvent = prompt('If this event is time-specific, please enter its start time in the format hh:mm')
+      if(timeStartEvent) {
+        timeEndEvent = prompt('Please enter its end time in the format hh:mm. If the event is all-day long, leave blank')
+      } 
     }
+    
+    //time date format: 2015-03-25T12:00:00Z
+    let start_date_str = selectInfo.startStr + "T:" + timeStartEvent + ":00"
+    let end_date_str = selectInfo.endStr + "T:" + timeEndEvent + ":00"
+ 
+    let startDateObject = new Date(selectInfo.startStr + "T" + timeStartEvent + ":00-04:00")
+    let endDateObject = new Date(selectInfo.endStr + "T" + timeEndEvent + ":00-04:00")
 
-    if (title) {
+    console.log(startDateObject)
+    console.log(endDateObject)
+
+    if (title && timeStartEvent && timeEndEvent) {
       calendarApi.addEvent({
         id: createEventId(),
-        title,
+        title: title,
+        start: startDateObject,
+        end: endDateObject,
+        allDay: false
+      })
+      
+    }
+    else if (title && timeStartEvent) {
+      calendarApi.addEvent({
+        id: createEventId(),
+        title: title,
+        start: startDateObject,
+        end: selectInfo.endStr,
+        allDay: true
+      })
+    }
+    else if (title) {
+      calendarApi.addEvent({
+        id: createEventId(),
+        title: title,
         start: selectInfo.startStr,
         end: selectInfo.endStr,
         allDay: selectInfo.allDay
       })
+      console.log(selectInfo.startStr)
+      console.log(selectInfo.endStr)
     }
   }
 
@@ -118,9 +158,11 @@ export default class DemoApp extends React.Component {
 }
 
 function renderEventContent(eventInfo) {
+  console.log(eventInfo.event)
+  console.log(eventInfo.timeText)
   return (
     <>
-      <b>{eventInfo.timeText}</b>
+      <b>{eventInfo.timeText + "-" + eventInfo.timeText.endStr}</b>
       <i>{eventInfo.event.title}</i>
     </>
   )
