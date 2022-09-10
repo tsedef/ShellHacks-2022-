@@ -107,15 +107,17 @@ export default class DemoApp extends React.Component {
       var actualEndStr = selectInfo.end //date object itself
       actualEndStr.setDate(actualEndStr.getDate() - 1) //initial selection of day. DEFAULT; Returns Date object
       actualEndStr = actualEndStr.toISOString().substring(0,10) //converts Date object to formatted string
-      console.log(actualEndStr)
+      
       if(timeStartEvent > timeEndEvent){ //end day changes because event passes midnight, therefore leading to the next day e.g.: 16:00 sept2 - 02:00 sept3
         actualEndStr = selectInfo.endStr //selectInfo.endStr; Library default value is next day
       }
 
       let startDateObject = new Date(selectInfo.startStr + "T" + timeStartEvent + ":00-04:00")
       let endDateObject = new Date(actualEndStr + "T" + timeEndEvent + ":00-04:00")
+  
+      let singleDayValidation = selectInfo.end.getDate() - selectInfo.start.getDate() <= 1 ? true : false 
 
-      if (title && timeStartEvent && timeEndEvent) {
+      if (title && timeStartEvent && timeEndEvent && (singleDayValidation)) { //ensures current date selection specifies 1 day only, else uses allDay event constructor below
         calendarApi.addEvent({
           id: createEventId(),
           title: title,
@@ -162,7 +164,7 @@ export default class DemoApp extends React.Component {
 }
 
 function renderEventContent(eventInfo) {
-  console.log((eventInfo.event))
+  console.log(`eventInfo: `,(eventInfo.event.title), eventInfo.event)
   return (
     <>
       <b>{eventInfo.timeText}</b>
