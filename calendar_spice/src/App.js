@@ -7,7 +7,6 @@ import { useState } from "react";
 import { INITIAL_EVENTS, createEventId } from "./event-utils";
 import DateTimePicker from "react-datetime-picker";
 import TimePicker from "react-time-picker";
-
 const App = () => {
   const [weekendsVisible, toggleWeekendsVisible] = useState(true);
   const [currentEvents, setCurrentEvents] = useState([]);
@@ -107,7 +106,7 @@ const App = () => {
     );
   };
 
-  handleDateSelect = (selectInfo) => {
+  const handleDateSelect = (selectInfo) => {
     let title = prompt("Please enter a new title for your event");
     let calendarApi = selectInfo.view.calendar;
 
