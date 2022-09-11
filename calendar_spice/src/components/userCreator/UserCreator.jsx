@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { useFirestore } from "../../hooks/useFirestore";
+import { useFirestore } from "../../hooks/useFireStore";
 
 const interests = [
   "3D printing",
