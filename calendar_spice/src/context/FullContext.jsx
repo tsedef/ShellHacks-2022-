@@ -12,7 +12,14 @@ export const authReducer = (state, action) => {
       return { ...state, events: action.payload };
     case "YELP":
       return { ...state, locations: action.payload };
-    default:
+    case "ADD_TO_USER_EVERYDAYBLOCK":
+      // return { 
+      //   ...state, 
+      //   userEverydayBlock:[action.item]  
+      // };
+      return { ...state, userEverydayBlock: action.payload };
+
+        default:
       return state;
   }
 };
@@ -23,6 +30,12 @@ export const FullContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, {
     user: "user",
     authIsReady: false,
+    userEverydayBlock: [
+      // {
+      //   id: "1",
+      //   title: "Sleep2",
+      // },
+    ],
   });
 
   //User document from firebase

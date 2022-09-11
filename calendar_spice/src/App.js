@@ -7,11 +7,20 @@ import { useState } from "react";
 import { INITIAL_EVENTS, createEventId } from "./event-utils";
 import DateTimePicker from "react-datetime-picker";
 import TimePicker from "react-time-picker";
+import { useFullContext } from "./hooks/useFullContext";
+import DailyActivity from "./components/DailyActivity";
+import { useRef } from "react";
+
 const App = () => {
   const [weekendsVisible, toggleWeekendsVisible] = useState(true);
   const [currentEvents, setCurrentEvents] = useState([]);
   const [dateTime, onDateTimeChange] = useState(new Date());
   const [time, onTimeChange] = useState("10:00");
+  const { dispatch, userEverydayBlock } = useFullContext();
+
+  const DailyActivityContainer = useRef(null);
+
+  // const [{},dispatch] = useStateValue;
 
   const handleWeekendsToggle = () => {
     toggleWeekendsVisible(!weekendsVisible);
@@ -19,7 +28,19 @@ const App = () => {
   const handleEvents = (events) => {
     setCurrentEvents(events);
   };
-
+  const addToState = () => {
+    dispatch({
+      type: "ADD_TO_USER_EVERYDAYBLOCK",
+      item: {
+        id: "2",
+        title: "sleep-test",
+      },
+    });
+    console.log("yes");
+  };
+  const addDailyActivity = () => {
+    DailyActivityContainer.current?.append(<DailyActivity />);
+  };
   const renderSidebar = () => {
     return (
       <div className="demo-app-sidebar">
@@ -44,7 +65,7 @@ const App = () => {
 
         <div className="Time-block-container">
           <h2>Time Blocks</h2>
-          <div>
+          <div ref={DailyActivityContainer} id={DailyActivityContainer}>
             <h3>Everyday</h3>
             <label>
               <input
@@ -52,16 +73,31 @@ const App = () => {
                 // checked={}
                 // onChange={}
               ></input>
-              Sleep
-              {/* <DateTimePicker
-                onChange={onDateTimeChange}
-                value={dateTime}
-                calendarIcon={null}
-                disableCalendar={true}
+              {/* {userEverydayBlock[0].title} */}
+              {/* <TimePicker
+                onChange={onTimeChange}
+                value={time}
                 disableClock={true}
               /> */}
-              <TimePicker onChange={onTimeChange} value={time} />
+              <DailyActivity />
             </label>
+            <button
+              type="button"
+              onClick={() => {
+                // dispatch({
+                //   type: "ADD_TO_USER_EVERYDAYBLOCK",
+                //   payload: {
+                //     id: "2",
+                //     title: "sleep-test",
+                //   },
+                // });
+                // console.log(userEverydayBlock);
+                addDailyActivity();
+                // console.log( DailyActivityContainer.current)
+              }}
+            >
+              Add new Everyday
+            </button>
           </div>
           <div>
             <h3>Specific days</h3>
@@ -73,7 +109,7 @@ const App = () => {
               ></input>
               Sleep
               <DateTimePicker
-                onChange={onTimeChange}
+                onChange={onDateTimeChange}
                 value={dateTime}
                 calendarIcon={null}
                 disableCalendar={true}
@@ -81,6 +117,21 @@ const App = () => {
               />
             </label>
           </div>
+          <button
+            type="button"
+            onClick={() => {
+              dispatch({
+                type: "ADD_TO_USER_EVERYDAYBLOCK",
+                payload: {
+                  id: "2",
+                  title: "sleep-test",
+                },
+              });
+              console.log(userEverydayBlock);
+            }}
+          >
+            Add new
+          </button>
         </div>
 
         <div className="demo-app-sidebar-section">
