@@ -12,13 +12,25 @@ import TimePicker from "react-time-picker";
 const App = () => {
   let calendarRef = React.useRef();
   const [weekendsVisible, toggleWeekendsVisible] = useState(true);
+  const [bedtimeEveryday, toggleBedtimeEveryday] = useState(true);
   const [currentEvents, setCurrentEvents] = useState([]);
+  const [time, onEverydayTimeChange] = useState("10:00");
   const [dateTime, onDateTimeChange] = useState(new Date());
-  const [time, onTimeChange] = useState("10:00");
 
   const handleWeekendsToggle = () => {
     toggleWeekendsVisible(!weekendsVisible);
   };
+  const handleBedtimeEverydayToggle = () => {
+    toggleBedtimeEveryday(!bedtimeEveryday);
+    console.timeLog;
+  };
+  // const everydayBedtimeEvent = () => {
+  //   if (bedtimeEveryday) {
+  //     calendarRef.current.getApi().addEvent();
+  //     console.log(time);
+  //   }
+  // };
+  // everydayBedtimeEvent();
   const handleEvents = (events) => {
     console.log(events);
     setCurrentEvents(events);
@@ -53,18 +65,14 @@ const App = () => {
             <label>
               <input
                 type="checkbox"
-                // checked={}
-                // onChange={}
+                checked={bedtimeEveryday}
+                onChange={handleBedtimeEverydayToggle}
               ></input>
               Sleep
-              {/* <DateTimePicker
-                onChange={onDateTimeChange}
-                value={dateTime}
-                calendarIcon={null}
-                disableCalendar={true}
-                disableClock={true}
-              /> */}
-              <TimePicker onChange={onTimeChange} value={time} />
+              <TimePicker
+                onChange={(e) => onEverydayTimeChange(e)}
+                value={time}
+              />
             </label>
           </div>
           <div>
@@ -77,7 +85,7 @@ const App = () => {
               ></input>
               Sleep
               <DateTimePicker
-                onChange={onTimeChange}
+                onChange={onDateTimeChange}
                 value={dateTime}
                 calendarIcon={null}
                 disableCalendar={true}
