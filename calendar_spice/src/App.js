@@ -1,5 +1,5 @@
 import React from "react";
-import FullCalendar, { formatDate } from "@fullcalendar/react";
+import FullCalendar, { CalendarApi, formatDate } from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
@@ -10,6 +10,7 @@ import TimePicker from "react-time-picker";
 import Navbar from "./components/Navbar";
 
 const App = () => {
+  let calendarRef = React.useRef();
   const [weekendsVisible, toggleWeekendsVisible] = useState(true);
   const [currentEvents, setCurrentEvents] = useState([]);
   const [dateTime, onDateTimeChange] = useState(new Date());
@@ -19,6 +20,7 @@ const App = () => {
     toggleWeekendsVisible(!weekendsVisible);
   };
   const handleEvents = (events) => {
+    console.log(events);
     setCurrentEvents(events);
   };
 
@@ -203,36 +205,62 @@ const App = () => {
     }
   };
 
+  const handleNewEvent = (event) => {
+    setTimeout(() => {
+      var calendarApi = calendarRef?.current?.getApi();
+      calendarApi.addEvent(event);
+    }, 10000);
+
+    // var calendarApi = await calendarRef?.current?.getApi(); //async version
+    // calendarApi.addEvent(event);
+  };
+
+  const dynamicEventCreation = () => {
+    handleNewEvent({
+      id: createEventId(),
+      title: "Beatles",
+      start: "2022-09-14",
+      end: "2017-09-14",
+      allDay: false,
+    });
+  };
+  dynamicEventCreation();
+
   return (
-    <>
-      <Navbar />
-      <div className="demo-app">
-        {renderSidebar()}
-        <div className="demo-app-main">
-          <FullCalendar
-            plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-            headerToolbar={{
-              left: "prev,next today",
-              center: "title",
-              right: "dayGridMonth,timeGridWeek,timeGridDay",
-            }}
-            initialView="dayGridMonth"
-            editable={true}
-            selectable={true}
-            selectMirror={true}
-            dayMaxEvents={true}
-            weekends={weekendsVisible}
-            initialEvents={INITIAL_EVENTS}
-            // alternatively, use the `events` setting to fetch from a feed
-            displayEventEnd={true}
-            businessHours={true}
-            select={handleDateSelect}
-            eventContent={renderEventContent} // custom render function
-            eventClick={handleEventClick}
-            eventsSet={handleEvents} // called after events are initialized/added/changed/removed
-          />
-        </div>
-      </div>
+ <>
+  <Navbar />
+    <div className="demo-app">
+      {renderSidebar()}
+      <div className="demo-app-main">
+        <FullCalendar
+          plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+          headerToolbar={{
+            left: "prev,next today",
+            center: "title",
+            right: "dayGridMonth,timeGridWeek,timeGridDay",
+          }}
+          ref={calendarRef}
+          initialView="dayGridMonth"
+          editable={true}
+          selectable={true}
+          selectMirror={true}
+          dayMaxEvents={true}
+          weekends={weekendsVisible}
+          initialEvents={INITIAL_EVENTS}
+          // alternatively, use the `events` setting to fetch from a feed
+          displayEventEnd={true}
+          businessHours={true}
+          select={handleDateSelect}
+          eventContent={renderEventContent} // custom render function
+          eventClick={handleEventClick}
+          eventsSet={handleEvents} // called after events are initialized/added/changed/removed
+          // eventAdd={handleAddedEvent}
+          /* you can update a remote database when these fire:
+            eventAdd={function(){}}
+            eventChange={function(){}}
+            eventRemove={function(){}}
+            */
+        />
     </>
   );
 };
