@@ -21,7 +21,9 @@
     "react": "^18.0.0",
     "react-datetime-picker": "^3.5.0",
     "react-dom": "^18.0.0",
-    "react-time-picker": "^4.5.0"
+    "react-icons": "^4.4.0",
+    "react-time-picker": "^4.5.0",
+    "styled-components": "^5.3.5"
   },
   "devDependencies": {
     "@babel/core": "^7.4.0",

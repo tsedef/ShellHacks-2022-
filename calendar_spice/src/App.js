@@ -9,7 +9,7 @@ import DateTimePicker from "react-datetime-picker";
 import TimePicker from "react-time-picker";
 import Test from "./Test";
 import { FirebaseQueries } from "./context/FirebaseQueries";
-// import Navbar from "./components/Navbar";
+import Navbar from "./components/Navbar";
 
 const App = () => {
   let calendarRef = React.useRef();
@@ -240,7 +240,7 @@ const App = () => {
     <>
       <Test />
       <FirebaseQueries />
-      {/* <Navbar /> */}
+      <Navbar />
       <div className="demo-app">
         {renderSidebar()}
         <div className="demo-app-main">
