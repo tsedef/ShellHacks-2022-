@@ -7,6 +7,8 @@ import { useState } from "react";
 import { INITIAL_EVENTS, createEventId } from "./event-utils";
 import DateTimePicker from "react-datetime-picker";
 import TimePicker from "react-time-picker";
+import Test from "./Test";
+import { FirebaseQueries } from "./context/FirebaseQueries";
 // import Navbar from "./components/Navbar";
 
 const App = () => {
@@ -236,6 +238,8 @@ const App = () => {
 
   return (
     <>
+      <Test />
+      <FirebaseQueries />
       {/* <Navbar /> */}
       <div className="demo-app">
         {renderSidebar()}

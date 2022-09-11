@@ -6,6 +6,9 @@ module.exports = {
   mode: "development",
   devtool: "source-map",
   entry: "./src/index.jsx",
+  experiments: {
+    topLevelAwait: true,
+  },
   resolve: {
     extensions: [".js", ".jsx"],
   },
