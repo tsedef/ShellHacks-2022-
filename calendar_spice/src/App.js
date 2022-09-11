@@ -1,5 +1,5 @@
 import React from "react";
-import FullCalendar, { formatDate } from "@fullcalendar/react";
+import FullCalendar, { CalendarApi, formatDate } from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
@@ -9,6 +9,7 @@ import DateTimePicker from "react-datetime-picker";
 import TimePicker from "react-time-picker";
 
 const App = () => {
+  let calendarRef = React.useRef();
   const [weekendsVisible, toggleWeekendsVisible] = useState(true);
   const [currentEvents, setCurrentEvents] = useState([]);
   const [dateTime, onDateTimeChange] = useState(new Date());
@@ -18,6 +19,7 @@ const App = () => {
     toggleWeekendsVisible(!weekendsVisible);
   };
   const handleEvents = (events) => {
+    console.log(events);
     setCurrentEvents(events);
   };
 
@@ -107,9 +109,10 @@ const App = () => {
     );
   };
 
-  handleDateSelect = (selectInfo) => {
-    let title = prompt("Please enter a new title for your event");
+  const handleDateSelect = (selectInfo) => {
     let calendarApi = selectInfo.view.calendar;
+    let title = prompt("Please enter a new title for your event");
+    console.log(`selectInfo: `, selectInfo);
 
     var timeStartEvent;
     var timeEndEvent;
@@ -202,6 +205,27 @@ const App = () => {
     }
   };
 
+  const handleNewEvent = (event) => {
+    setTimeout(() => {
+      var calendarApi = calendarRef?.current?.getApi();
+      calendarApi.addEvent(event);
+    }, 10000);
+
+    // var calendarApi = await calendarRef?.current?.getApi(); //async version
+    // calendarApi.addEvent(event);
+  };
+
+  const dynamicEventCreation = () => {
+    handleNewEvent({
+      id: createEventId(),
+      title: "Beatles",
+      start: "2022-09-14",
+      end: "2017-09-14",
+      allDay: false,
+    });
+  };
+  dynamicEventCreation();
+
   return (
     <div className="demo-app">
       {renderSidebar()}
@@ -213,6 +237,7 @@ const App = () => {
             center: "title",
             right: "dayGridMonth,timeGridWeek,timeGridDay",
           }}
+          ref={calendarRef}
           initialView="dayGridMonth"
           editable={true}
           selectable={true}
@@ -227,6 +252,7 @@ const App = () => {
           eventContent={renderEventContent} // custom render function
           eventClick={handleEventClick}
           eventsSet={handleEvents} // called after events are initialized/added/changed/removed
+          // eventAdd={handleAddedEvent}
           /* you can update a remote database when these fire:
             eventAdd={function(){}}
             eventChange={function(){}}
