@@ -7,7 +7,8 @@ import { useState } from "react";
 import { INITIAL_EVENTS, createEventId } from "./event-utils";
 import DateTimePicker from "react-datetime-picker";
 import TimePicker from "react-time-picker";
-import Navbar from "./components/Navbar";
+// import Navbar from "./components/Navbar";
+import UserCreator from "./components/userCreator/UserCreator";
 
 const App = () => {
   let calendarRef = React.useRef();
@@ -227,40 +228,43 @@ const App = () => {
   dynamicEventCreation();
 
   return (
- <>
-  <Navbar />
-    <div className="demo-app">
-      {renderSidebar()}
-      <div className="demo-app-main">
-        <FullCalendar
-          plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-          headerToolbar={{
-            left: "prev,next today",
-            center: "title",
-            right: "dayGridMonth,timeGridWeek,timeGridDay",
-          }}
-          ref={calendarRef}
-          initialView="dayGridMonth"
-          editable={true}
-          selectable={true}
-          selectMirror={true}
-          dayMaxEvents={true}
-          weekends={weekendsVisible}
-          initialEvents={INITIAL_EVENTS}
-          // alternatively, use the `events` setting to fetch from a feed
-          displayEventEnd={true}
-          businessHours={true}
-          select={handleDateSelect}
-          eventContent={renderEventContent} // custom render function
-          eventClick={handleEventClick}
-          eventsSet={handleEvents} // called after events are initialized/added/changed/removed
-          // eventAdd={handleAddedEvent}
-          /* you can update a remote database when these fire:
+    <>
+      {/* <Navbar /> */}
+      <div className="demo-app">
+        {renderSidebar()}
+        <div className="demo-app-main">
+          <FullCalendar
+            plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+            headerToolbar={{
+              left: "prev,next today",
+              center: "title",
+              right: "dayGridMonth,timeGridWeek,timeGridDay",
+            }}
+            ref={calendarRef}
+            initialView="dayGridMonth"
+            editable={true}
+            selectable={true}
+            selectMirror={true}
+            dayMaxEvents={true}
+            weekends={weekendsVisible}
+            initialEvents={INITIAL_EVENTS}
+            // alternatively, use the `events` setting to fetch from a feed
+            displayEventEnd={true}
+            businessHours={true}
+            select={handleDateSelect}
+            eventContent={renderEventContent} // custom render function
+            eventClick={handleEventClick}
+            eventsSet={handleEvents} // called after events are initialized/added/changed/removed
+            // eventAdd={handleAddedEvent}
+            /* you can update a remote database when these fire:
             eventAdd={function(){}}
             eventChange={function(){}}
             eventRemove={function(){}}
             */
-        />
+          />
+          <UserCreator />
+        </div>
+      </div>
     </>
   );
 };
