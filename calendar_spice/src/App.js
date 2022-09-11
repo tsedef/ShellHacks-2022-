@@ -10,6 +10,7 @@ import TimePicker from "react-time-picker";
 import Test from "./Test";
 import { FirebaseQueries } from "./context/FirebaseQueries";
 import Navbar from "./components/Navbar";
+import { IoIosCloseCircle } from "react-icons/io";
 
 const App = () => {
   let calendarRef = React.useRef();
@@ -201,6 +202,7 @@ const App = () => {
       <>
         <b>{eventInfo.timeText}</b>
         <i>{eventInfo.event.title}</i>
+        <IoIosCloseCircle className="IosCloseCircle" />
       </>
     );
   };

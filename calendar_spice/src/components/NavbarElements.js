@@ -1,4 +1,5 @@
 import { FaBars } from "react-icons/fa";
+import { BsPersonCircle } from "react-icons/bs";
 import styled from "styled-components";
 
 export const Nav = styled.nav`
@@ -15,6 +16,31 @@ export const Nav = styled.nav`
   color: white;
   margin: auto;
   pointer-events: none;
+  align-items: center;
+`;
+
+export const NavMenu = styled.div`
+  display: flex;
+  align-items: center;
+  margin-right: -24px;
+  text-align: center;
+  font-size: xx-large;
+  /* Second Nav */
+  /* margin-right: 24px; */
+  /* Third Nav */
+  /* width: 100vw;
+  white-space: nowrap; */
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+  //margin: inherit;
+`;
+
+export const StyledBsPersonCircle = styled(BsPersonCircle)`
+  font-size: inherit;
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
 `;
 
 // export const NavLink = styled(Link)`
@@ -41,20 +67,6 @@ export const Bars = styled(FaBars)`
     transform: translate(-100%, 75%);
     font-size: 1.8rem;
     cursor: pointer;
-  }
-`;
-
-export const NavMenu = styled.div`
-  display: flex;
-  align-items: center;
-  margin-right: -24px;
-  /* Second Nav */
-  /* margin-right: 24px; */
-  /* Third Nav */
-  /* width: 100vw;
-white-space: nowrap; */
-  @media screen and (max-width: 768px) {
-    display: none;
   }
 `;
 
