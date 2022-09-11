@@ -7,6 +7,7 @@ import { useState } from "react";
 import { INITIAL_EVENTS, createEventId } from "./event-utils";
 import DateTimePicker from "react-datetime-picker";
 import TimePicker from "react-time-picker";
+import Navbar from "./components/Navbar";
 
 const App = () => {
   let calendarRef = React.useRef();
@@ -110,9 +111,8 @@ const App = () => {
   };
 
   const handleDateSelect = (selectInfo) => {
-    let calendarApi = selectInfo.view.calendar;
     let title = prompt("Please enter a new title for your event");
-    console.log(`selectInfo: `, selectInfo);
+    let calendarApi = selectInfo.view.calendar;
 
     var timeStartEvent;
     var timeEndEvent;
@@ -227,6 +227,8 @@ const App = () => {
   dynamicEventCreation();
 
   return (
+ <>
+  <Navbar />
     <div className="demo-app">
       {renderSidebar()}
       <div className="demo-app-main">
@@ -259,8 +261,7 @@ const App = () => {
             eventRemove={function(){}}
             */
         />
-      </div>
-    </div>
+    </>
   );
 };
 
