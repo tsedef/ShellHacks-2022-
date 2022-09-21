@@ -1,0 +1,71 @@
+.container {
+  display: grid;
+  width: 100vw;
+  height: 100vh;
+  grid-template-areas:
+    "top  profiles profiles profiles profiles profiles"
+    "left main main main right right"
+    "btm main main main right right"
+    "btm main main main right right"
+    "btm main main main right right";
+}
+
+.left {
+  margin-top: -8rem;
+  /* height: 90vh; */
+  grid-area: left;
+  background-color: var(--grey-light-1);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.left ul {
+  color: rgba(0, 0, 0, 0.5);
+  font-weight: 600;
+  margin-left: -2rem;
+}
+.left_btm {
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(250, 250, 250);
+  grid-area: btm;
+  align-items: center;
+}
+.right {
+  width: 45rem;
+  grid-area: right;
+}
+
+.top {
+  position: relative;
+  display: flex;
+  background-color: rgb(255, 255, 255);
+  grid-area: top;
+  height: 14rem;
+}
+
+.top img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 5rem;
+  padding: 0.5rem;
+  background-color: var(--color-light-1);
+  border-radius: 50%;
+  box-shadow: var(--shadow-dark);
+}
+
+.profiles {
+  background-color: rgb(255, 255, 255);
+  height: 14rem;
+  grid-area: profiles;
+  display: flex;
+  justify-content: space-around;
+}
+
+.left_btm img {
+  max-width: 19rem;
+  background-color: var(--color-light-1);
+}
