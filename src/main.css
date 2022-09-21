@@ -1,0 +1,198 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+:root {
+  --dark-purple: #8e009b;
+  --light-purple: #a710b4;
+  --dark-brown: #773d01;
+  --light-brown: #c46b21;
+  --dark-blue: #0e0053;
+  --soft-white: #f5f5f5;
+  --grey-light-1: #faf9f9;
+  --grey-light-2: #f4f2f2;
+  --grey-light-3: #f0eeee;
+  --grey-light-4: #ccc;
+  --grey-dark-1: #333;
+  --grey-dark-2: #777;
+  --grey-dark-3: #999;
+  --grey-dark-4: #a7a6a6;
+  --shadow-dark: 0 2rem 6rem rgba(0, 0, 0, 0.3);
+  --shadow-light: 0 2rem 5rem rgba(0, 0, 0, 0.06);
+  --line: 1px solid var(--grey-light-4);
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  text-transform: capitalize;
+  box-sizing: border-box;
+}
+html {
+  width: 100vw;
+  height: 100vh;
+  font-size: 62.5%;
+}
+
+body {
+  width: 100%;
+  height: 100%;
+  font-family: Poppins, sans-serif;
+  font-size: 1.6rem;
+  background-color: var(--grey-light-2);
+  overflow-x: hidden;
+  max-width: 95rem;
+  padding: 1rem;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+}
+
+.btn {
+  font-family: inherit;
+  border: none;
+  border-radius: 6px;
+  font-size: 1.7rem;
+  line-height: 4.8rem;
+  padding: 0 1.6rem;
+  cursor: pointer;
+}
+
+.btn_valid {
+  color: #fff;
+  background-color: var(--cool-blue);
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+h2 {
+  margin: 0;
+  font-size: 16px;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 1.5em;
+}
+
+li {
+  margin: 1.5em 0;
+  padding: 0;
+}
+
+b {
+  /* used for event dates/times */
+  margin-right: 3px;
+}
+
+.demo-app {
+  display: flex;
+  min-height: 100%;
+  font-size: 14px;
+}
+
+.demo-app-sidebar {
+  height: 100vh;
+  width: 300px;
+  line-height: 1.5;
+  background: #fff;
+  border-right: 1px solid #d3e2e8;
+}
+
+.demo-app-sidebar-section {
+  padding: 2em;
+}
+
+.demo-app-main {
+  width: 50vw;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  flex-grow: 1;
+  padding: 3em;
+}
+
+.fc {
+  /* the calendar root */
+  max-width: 1100px;
+  margin: 0 auto;
+}
+div label input {
+  margin-right: 1rem !important;
+}
+input[type="checkbox"] {
+  display: inline-flex !important;
+  margin-right: 1rem;
+  /* Add if not using autoprefixer */
+  -webkit-appearance: none;
+  /* Remove most all native input styles */
+  appearance: none;
+  /* For iOS < 15 */
+  background-color: var(--form-background);
+  /* Not removed via appearance */
+  margin: 0;
+
+  font: inherit;
+  color: currentColor;
+  width: 1.15em;
+  height: 1.15em;
+  border: 0.15em solid currentColor;
+  border-radius: 0.15em;
+  transform: translateY(-0.075em);
+
+  display: grid;
+  place-content: center;
+}
+
+input[type="checkbox"]::before {
+  content: "";
+  width: 0.65em;
+  height: 0.65em;
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+  transform: scale(0);
+  transform-origin: bottom left;
+  transition: 120ms transform ease-in-out;
+  box-shadow: inset 1em 1em var(--form-control-color);
+  /* Windows High Contrast Mode */
+  background-color: CanvasText;
+}
+
+input[type="checkbox"]:checked::before {
+  transform: scale(1);
+}
+
+input[type="checkbox"]:focus {
+  outline: max(2px, 0.15em) solid currentColor;
+  outline-offset: max(2px, 0.15em);
+}
+
+.react-datetime-picker__wrapper,
+.react-time-picker__wrapper {
+  border-radius: 10px;
+  border: 1.5px solid black;
+  margin-left: 10px;
+  /* border: none; */
+}
+
+.Time-block-container {
+  margin-left: 2rem;
+}
+.Time-block-container h2 {
+  margin-left: -2rem;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.Time-block-container h3 {
+  margin-bottom: 0.5rem;
+}
+.Time-block-container div {
+  margin-bottom: 0.5rem;
+}
+.demo-app-sidebar-section ul {
+  list-style: disc;
+}

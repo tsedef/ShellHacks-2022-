@@ -6,7 +6,7 @@ import {
   deleteDoc,
   arrayUnion,
 } from "firebase/firestore";
-import { projectFirestore, Timestamp } from "../../firebase-config";
+import { projectFirestore, Timestamp } from "../firebase-config";
 
 let initialState = {
   document: null,

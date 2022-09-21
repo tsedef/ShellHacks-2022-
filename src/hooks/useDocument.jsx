@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { doc, onSnapshot } from "firebase/firestore";
-import { projectFirestore } from "../../firebase-config";
+import { projectFirestore } from "../firebase-config";
 
 export const useDocument = (documentPath) => {
   const [document, setDocument] = useState(null);

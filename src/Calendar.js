@@ -1,4 +1,5 @@
 import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import FullCalendar, { CalendarApi, formatDate } from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
@@ -9,7 +10,7 @@ import DateTimePicker from "react-datetime-picker";
 import TimePicker from "react-time-picker";
 // import Navbar from "./components/Navbar";
 
-const App = () => {
+const Calendar = () => {
   let calendarRef = React.useRef();
   const [weekendsVisible, toggleWeekendsVisible] = useState(true);
   const [bedtimeEveryday, toggleBedtimeEveryday] = useState(true);
@@ -22,7 +23,7 @@ const App = () => {
   };
   const handleBedtimeEverydayToggle = () => {
     toggleBedtimeEveryday(!bedtimeEveryday);
-    console.timeLog;
+    // console.timeLog;
   };
   // const everydayBedtimeEvent = () => {
   //   if (bedtimeEveryday) {
@@ -204,13 +205,13 @@ const App = () => {
   };
 
   const handleEventClick = (clickInfo) => {
-    if (
-      confirm(
-        `Are you sure you want to delete the event '${clickInfo.event.title}'`
-      )
-    ) {
-      clickInfo.event.remove();
-    }
+    // if (
+    //   confirm(
+    //     `Are you sure you want to delete the event '${clickInfo.event.title}'`
+    //   )
+    // ) {
+    //   clickInfo.event.remove();
+    // }
   };
 
   const handleNewEvent = (event) => {
@@ -275,4 +276,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Calendar;
